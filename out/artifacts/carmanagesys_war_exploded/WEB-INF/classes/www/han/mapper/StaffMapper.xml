@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="www.han.mapper.StaffMapper">
+    <select id="staffList" resultType="staff">
+        select * from staff
+    </select>
+    <select id="staffListLimit" parameterType="map" resultType="staff">
+        select * from staff limit #{pageStart},#{pageSize}
+    </select>
+    <select id="getCount" resultType="int">
+        select count(1) from staff
+    </select>
+</mapper>

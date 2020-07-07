@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--数据源配置-->
+    <context:property-placeholder location="classpath:db.properties"
+                                  system-properties-mode="FALLBACK"></context:property-placeholder>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url"
+                  value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!--配饰druid数据库参数-->
+        <property name="initialSize" value="${initialSize}"/>
+        <property name="minIdle" value="${minIdle}"/>
+        <property name="maxActive" value="${maxActive}"/>
+        <property name="maxWait" value="${maxWait}"/>
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}"/>
+        <property name="validationQuery" value="${validationQuery}"/>
+        <property name="testWhileIdle" value="${testWhileIdle}"/>
+        <property name="testOnBorrow" value="${testOnBorrow}"/>
+        <property name="testOnReturn" value="${testOnReturn}"/>
+        <property name="poolPreparedStatements" value="${poolPreparedStatements}"/>
+        <property name="filters" value="${filters}"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+                  value="${maxPoolPreparedStatementPerConnectionSize}"/>
+        <property name="useGlobalDataSourceStat" value="${useGlobalDataSourceStat}"/>
+        <property name="connectionProperties" value="${connectionProperties}"/>
+    </bean>
+
+    <!--配置SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--绑定mybatis配置文件-->
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+        <!--绑定mapper.xml文件,相当于mappers标签-->
+        <property name="mapperLocations" value="classpath:www/han/mapper/*.xml"/>
+    </bean>
+    <!--    &lt;!&ndash;配置sqlSession&ndash;&gt;-->
+    <!--    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">-->
+    <!--        &lt;!&ndash;只能使用构造器注入&ndash;&gt;-->
+    <!--        <constructor-arg index="0" ref="sqlSessionFactory"/>-->
+    <!--    </bean>-->
+
+    <!-- 4.配置扫描Dao接口包，动态实现Dao接口注入到spring容器中
+     https://www.cnblogs.com/jpfss/p/7799806.html -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注意一定是value-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="www.han.mapper"/>
+    </bean>
+
+
+
+</beans>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>登录页面</title>
+    <link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
+    <style>
+        .user-form {
+            display: none;
+        }
+
+        .login-box {
+            width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            border: 5px solid #000000;
+            border-radius: 5%;
+        }
+
+        .admin-form, .user-form {
+            margin: 50px auto 0px auto;
+            width: 400px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="login-box">
+
+<!--    <button class="admin-btn layui-btn layui-btn-sm">管理员登录</button>-->
+<!--    <button class="user-btn layui-btn layui-btn-sm">用户登录</button>-->
+    <!--管理员登录-->
+    <span style="color: red" th:text="${msg}"></span>
+    <div class="admin-form">
+        <form class="layui-form" action="/login.do" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="username" placeholder="请输入管理员账号" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密 码：</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="password"  placeholder="请输入密码" class="layui-input">
+                </div>
+            </div>
+
+            <button type="submit" class="layui-btn layui-btn-sm" lay-submit lay-filter="login" ><span
+                    class="layui-icon layui-icon-release"></span>登录
+            </button>
+            <button type="reset" class="layui-btn layui-btn-sm layui-btn-warm"><span
+                    class="layui-icon layui-icon-refresh"></span>重置
+            </button>
+        </form>
+    </div>
+</div>
+
+<script src="../../static/lib/layui/layui.js"></script>
+<script type="text/javascript">
+    layui.use(['element', 'jquery','form'], function () {
+        var element = layui.element;
+        var $ = layui.jquery;
+        var form = layui.form
+
+        // form.on('submit(login)', function(data){
+        //     console.log(data);
+        //
+        // });
+        $(document).ready(function () {
+            $(".admin-btn").click(function () {
+                $(".admin-form").show()
+                $(".user-form").hide()
+            });
+            $(".user-btn").click(function () {
+                $(".user-form").show()
+                $(".admin-form").hide()
+
+            });
+        });
+    })
+</script>
+</body>
+
+</html>
