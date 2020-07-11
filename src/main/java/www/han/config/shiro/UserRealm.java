@@ -36,6 +36,9 @@ public class UserRealm extends AuthorizingRealm {
         System.out.println("授权中得到的userName："+userName);
         //通过service获取角色和权限
         Set<String> permissions = permService.getPerms(userName);
+        for (String permission : permissions) {
+            System.out.println("permissons---"+permission);
+        }
         Set<String> roles = roleService.getRoles(userName);
 
         //授权对象

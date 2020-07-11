@@ -40,5 +40,25 @@ public class StaffServiceImpl implements StaffService {
         return staffMapper.getCount();
     }
 
+    @Override
+    public int delStaff(int staffId) {
+        return staffMapper.delStaff(staffId);
+    }
+
+    @Override
+    public int updateStaff(Staff staff) {
+        return staffMapper.updateStaff(staff);
+    }
+
+    @Override
+    public List<String> getDepartment() {
+        return staffMapper.getDepartment();
+    }
+
+    @Override
+    public int addStaff(Staff staff) {
+        return staffMapper.addStaff(staff);
+    }
+
 
 }

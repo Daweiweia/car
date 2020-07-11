@@ -12,4 +12,24 @@
     <select id="getCount" resultType="int">
         select count(1) from staff
     </select>
+    <delete id="delStaff" parameterType="int">
+        delete from staff where staff_id=#{staffId}
+    </delete>
+    <update id="updateStaff" parameterType="staff">
+        update staff set department_name=#{department_name},
+                         staff_bankCard=#{staff_bankCard},
+                         staff_idCard = #{staff_idCard},
+                         staff_name=#{staff_name},
+                         staff_phone=#{staff_phone},
+                         staff_addr=#{staff_addr},
+                         jointime=#{jointime}
+                        where staff_id=#{staff_id}
+
+    </update>
+    <select id="getDepartment" resultType="String">
+        select department_name from department
+    </select>
+    <insert id="addStaff" parameterType="staff">
+        insert into staff values (#{staff_id},#{department_name},#{staff_name},#{staff_phone},#{staff_addr},#{jointime},#{staff_bankCard},#{staff_idCard})
+    </insert>
 </mapper>

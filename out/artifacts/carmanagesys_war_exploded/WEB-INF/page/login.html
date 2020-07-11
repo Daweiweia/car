@@ -5,7 +5,7 @@
     <title>登录页面</title>
     <link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
     <style>
-        .user-form {
+        .register_box {
             display: none;
         }
 
@@ -17,7 +17,7 @@
             border-radius: 5%;
         }
 
-        .admin-form, .user-form {
+        .admin-form{
             margin: 50px auto 0px auto;
             width: 400px;
         }
@@ -26,11 +26,10 @@
 </head>
 <body>
 
-<div class="login-box">
+    <button class="login_btn">登录</button>
+    <button class="register_btn">注册</button>
 
-<!--    <button class="admin-btn layui-btn layui-btn-sm">管理员登录</button>-->
-<!--    <button class="user-btn layui-btn layui-btn-sm">用户登录</button>-->
-    <!--管理员登录-->
+<!--<div class="login_box">
     <span style="color: red" th:text="${msg}"></span>
     <div class="admin-form">
         <form class="layui-form" action="/login.do" method="post">
@@ -57,27 +56,63 @@
     </div>
 </div>
 
+<div class="register_box">
+    <form class="layui-form" action="/register.do" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户id：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="user_id" placeholder="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名：</label>
+            <div class="layui-input-inline">
+                <input type="password" name="user_name"  placeholder="" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码：</label>
+            <div class="layui-input-inline">
+                <input type="password" name="user_password"  placeholder="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话：</label>
+            <div class="layui-input-inline">
+                <input type="password" name="user_phone"  placeholder="" class="layui-input">
+            </div>
+        </div>
+
+        <button type="submit" class="layui-btn layui-btn-sm" lay-submit lay-filter="login" ><span
+                class="layui-icon layui-icon-release"></span>提交
+        </button>
+        <button type="reset" class="layui-btn layui-btn-sm layui-btn-warm"><span
+                class="layui-icon layui-icon-refresh"></span>重置
+        </button>
+    </form>
+</div>-->
+
 <script src="../../static/lib/layui/layui.js"></script>
 <script type="text/javascript">
+    if (self.location !== top.location) {
+        top.location = self.location;
+    }
+
     layui.use(['element', 'jquery','form'], function () {
         var element = layui.element;
         var $ = layui.jquery;
         var form = layui.form
 
-        // form.on('submit(login)', function(data){
-        //     console.log(data);
-        //
-        // });
-        $(document).ready(function () {
-            $(".admin-btn").click(function () {
-                $(".admin-form").show()
-                $(".user-form").hide()
+            $(".register_btn").click(function () {
+                alert("韩韩")
+                $(".register_box").show()
+                $(".login_box").hide()
             });
-            $(".user-btn").click(function () {
-                $(".user-form").show()
-                $(".admin-form").hide()
-
-            });
+            $(".login_btn").click(function () {
+                alert("黄齑淡饭")
+                $(".login_box").show()
+                $(".register_box").hide()
         });
     })
 </script>

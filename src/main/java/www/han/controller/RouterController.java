@@ -15,13 +15,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/router")
 public class RouterController {
-   /* @RequestMapping("/toIndex")
+ /*   @RequestMapping("/toIndex")
     public String toIndex(){
         return "index";
     }*/
     @RequestMapping("/toMain")
     public String toMain() {
         return "main";
+    }
+
+    /**
+     *功能描述:跳转到staff信息页面
+     * @author qqg
+     * @date
+     * @param
+     * @return
+     */
+    @RequestMapping("/toStaff")
+    public String toStaffPage() {
+        System.out.println("进来了toStaff");
+        return "staff";
     }
 
     @RequestMapping("/toStat")
@@ -34,10 +47,10 @@ public class RouterController {
         return "redirect:/login.html";
     }
 
-    @RequestMapping("/logout")
+/*    @RequestMapping("/logout")
     public String logout() {
         return "redirect:/login.html";
-    }
+    }*/
 
     @RequestMapping("/nopower")
     @ResponseBody

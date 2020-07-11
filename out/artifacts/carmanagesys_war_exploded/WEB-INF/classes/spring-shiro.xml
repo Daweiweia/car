@@ -16,7 +16,7 @@
 
     <!-- 登出出过滤器 -->
     <bean id="logoutFilter" class="org.apache.shiro.web.filter.authc.LogoutFilter">
-        <property name="redirectUrl" value="/router/logout"/>
+        <property name="redirectUrl" value="/"/>
     </bean>
 
     <!--配置shiro的过滤器工厂类，id- shiroFilter要和我们在web.xml中配置的过滤器一致 -->

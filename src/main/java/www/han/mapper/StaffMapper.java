@@ -32,8 +32,21 @@ public interface StaffMapper {
      */
     int getCount();
     /**
-
+    更新信息
      */
+    int updateStaff(Staff staff);
+    /**
+     删除员工信息根据id
+     */
+    int delStaff(int staffId);
+    /**
+        获取部门名称
+     */
+    List<String> getDepartment();
+    /**
+        增加员工信息
+     */
+    int addStaff(Staff staff);
     /**
 
      */

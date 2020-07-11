@@ -1,61 +1,152 @@
-
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>员工信息</title>
     <link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
 </head>
 <body>
-<div  id="staffedit" style="display: none;text-align: center">
-    <form class="layui-form" lay-filter="staff_form" th:action="@{/staff/update}" method="post">
+<div id="staff_edit" style="display: none;">
+    <form class="layui-form" lay-filter="staff_form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">员工id</label>
+            <div class="layui-input-inline">
+                <input type="text" disabled="false" name="staff_id" lay-verify="number" autocomplete="off"
+                       placeholder=""
+                       class="layui-input">
+            </div>
+        </div>
+
         <div class="layui-form-item">
             <label class="layui-form-label">部门名称</label>
             <div class="layui-input-inline">
-                <input type="text" name="department_name" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                <input type="text" name="department_name" autocomplete="off" placeholder=""
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">银行卡号</label>
             <div class="layui-input-inline">
-                <input type="text" name="staff_bankCard" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                <input type="text" name="staff_bankCard" autocomplete="off" placeholder=""
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">身份证号</label>
             <div class="layui-input-inline">
-                <input type="text" name="staff_idCard" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                <!--                lay-verify="identity"-->
+                <input type="text" name="staff_idCard" autocomplete="off" placeholder=""
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-inline">
-                <input type="text" name="staff_name" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                <input type="text" name="staff_name" autocomplete="off" placeholder=""
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">电话</label>
             <div class="layui-input-inline">
-                <input type="text" name="staff_phone" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                <!--                lay-verify="phone"-->
+                <input type="text" name="staff_phone" autocomplete="off" placeholder=""
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">家庭住址</label>
             <div class="layui-input-inline">
-                <input type="text" name="staff_addr" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                <input type="text" name="staff_addr" autocomplete="off" placeholder=""
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">入职时间</label>
             <div class="layui-input-inline">
-                <input type="date" name="jointime" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                <input type="date" name="jointime" lay-verify="date" autocomplete="off" placeholder=""
+                       class="layui-input">
             </div>
         </div>
-        <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1"><span
-                class="layui-icon layui-icon-release"></span>提交</button>
+        <button class="layui-btn" lay-submit lay-filter="update"><span
+                class="layui-icon layui-icon-release"></span>提交
+        </button>
         <button type="reset" class="layui-btn layui-btn-primary"><span
-                class="layui-icon layui-icon-refresh"></span>清空</button>
+                class="layui-icon layui-icon-refresh"></span>清空
+        </button>
     </form>
 </div>
+<div id="staff_add" style="display: none;">
+    <form class="layui-form" lay-filter="staff_form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">员工id</label>
+            <div class="layui-input-inline">
+                <input type="text" name="staff_id" lay-verify="number" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属部门</label>
+            <div class="layui-input-block department_name">
+                <select  name="department_name" lay-filter="">
+                    <option value="销售部" selected>销售部</option>
+                    <option value="维修部">维修部</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">银行卡号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="staff_bankCard" autocomplete="off" placeholder=""
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">身份证号</label>
+            <div class="layui-input-inline">
+                <!--                lay-verify="identity"-->
+                <input type="text" name="staff_idCard" autocomplete="off" placeholder=""
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="staff_name" autocomplete="off" placeholder=""
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-inline">
+                <!--                lay-verify="phone"-->
+                <input type="text" name="staff_phone" autocomplete="off" placeholder=""
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">家庭住址</label>
+            <div class="layui-input-inline">
+                <input type="text" name="staff_addr" autocomplete="off" placeholder=""
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">入职时间</label>
+            <div class="layui-input-inline">
+                <input type="date" name="jointime" lay-verify="date" autocomplete="off" placeholder=""
+                       class="layui-input">
+            </div>
+        </div>
+        <button class="layui-btn" lay-submit lay-filter="add"><span
+                class="layui-icon layui-icon-release"></span>提交
+        </button>
+        <button type="reset" class="layui-btn layui-btn-primary"><span
+                class="layui-icon layui-icon-refresh"></span>清空
+        </button>
+    </form>
+</div>
+
 <table class="layui-hide" id="staff_form" lay-filter="staff_filter">
 </table>
 
@@ -63,118 +154,200 @@
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="addStaff">新增</button>
     </div>
 </script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="staff:update">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete" shiro:hasPermission="staff:delete">删除</a>
 </script>
 <!--<span th:text="${msg}"></span>-->
 <script src="../../static/lib/layui/layui.js"></script>
 
 <script>
-    layui.use(['table','layer','jquery','form'], function(){
+    layui.use(['table', 'layer', 'jquery', 'form'], function () {
         var table = layui.table;
         var layer = layui.layer;
         var $ = layui.jquery;
         var form = layui.form;
+        var curIndex;
+        var departments = '好伐';
 
         table.render({
             elem: '#staff_form'
-            ,url:'/staff/staffList'
-            ,toolbar: '#toolbar_head'
-            ,title: '用户数据表'
+            , url: '/staff/staffList'
+            , toolbar: '#toolbar_head'
+            , title: '用户数据表'
+            , id: 'staffTable'
             // ,totalRow: true
-            ,cols: [
+            , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field:'staff_id', title:'员工id', width:100, fixed: 'left', unresize: true, sort: true, totalRowText: '合计'}
-                    ,{field:'department_name', title:'所属部门', width:120, }
-                    ,{field:'staff_bankCard', title:'银行卡号', width:120, }
-                    ,{field:'staff_idCard', title:'身份证号', width:120,}
-                    ,{field:'staff_name', title:'姓名', width:80,  totalRow: true}
-                    ,{field:'staff_phone', title:'电话', width:80,  }
-                    ,{field:'staff_addr', title:'住址', width:100, totalRow: true}
-                    ,{field: 'jointime',title: '入职时间',width: 120,templet:'<div>{{layui.util.toDateString(d.jointime,"yyyy-MM-dd")}}</div>'}
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
-             ]
+                    , {
+                    field: 'staff_id',
+                    title: '员工id',
+                    width: 100,
+                    fixed: 'left',
+                    unresize: true,
+                    sort: true,
+                    totalRowText: '合计'
+                }
+                    , {field: 'department_name', title: '所属部门', width: 120,}
+                    , {field: 'staff_bankCard', title: '银行卡号', width: 120,}
+                    , {field: 'staff_idCard', title: '身份证号', width: 120,}
+                    , {field: 'staff_name', title: '姓名', width: 80, totalRow: true}
+                    , {field: 'staff_phone', title: '电话', width: 80,}
+                    , {field: 'staff_addr', title: '住址', width: 100, totalRow: true}
+                    , {
+                    field: 'jointime',
+                    title: '入职时间',
+                    width: 120,
+                    templet: '<div>{{layui.util.toDateString(d.jointime,"yyyy-MM-dd")}}</div>'
+                }
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                ]
             ]
-            ,page: true
-            ,limits:[5,10,15,70]
-            ,limit:5
-            ,request: {
+            , page: true
+            , limits: [5, 10, 15, 70]
+            , limit: 5
+            , request: {
                 pageName: 'currentPageNo' //页码的参数名称，默认：page
-                ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+                , limitName: 'pageSize' //每页数据量的参数名，默认：limit
             }
         });
 
         //工具栏事件
-        table.on('toolbar(staff_filter)', function(obj){
+        table.on('toolbar(staff_filter)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
-            switch(obj.event){
+            switch (obj.event) {
                 case 'getCheckData':
                     var data = checkStatus.data;
                     layer.alert(JSON.stringify(data));
                     break;
                 case 'getCheckLength':
                     var data = checkStatus.data;
-                    layer.msg('选中了：'+ data.length + ' 个');
+                    layer.msg('选中了：' + data.length + ' 个');
                     break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选': '未全选')
-                    break;
+                case 'addStaff':
+                    /*$.ajax({
+                        url: '/staff/getDepartment',
+                        type: "POST",
+                        success: function (data) {
+                            var html=`<select  name="department_name" lay-filter="">
+              `
+                            let parse = JSON.parse(data);
+                            for (let parseKey in parse) {
+                                console.log(parse[parseKey]);
+                                html =html + '<option value="' + parse[parseKey] + '">' + parse[parseKey] + '</option>';
+                            }
+                            html +=`</select>`
+                            $(".department_sel").html(html)
+                        }
+                    })*/
+                    curIndex = layer.open({
+                        type: 1,
+                        area: ['600px', '600px'],
+                        title: "增加员工",
+                        fixed: false, //不固定
+                        maxmin: true,
+                        shadeClose: false,
+                        content: $('#staff_add')
+                    });
             };
         });
-        table.on('tool(staff_filter)',function (obj) {
+
+
+        table.on('tool(staff_filter)', function (obj) {
             var data = obj.data;
-            var layEvent  = obj.event;
-            console.log(obj)
-            if (layEvent == 'edit'){
-                layer.open({
-                    type: 1,
-                    area: ['700px', '500px'],
-                    title: "修改信息",
-                    fixed: false, //不固定
-                    maxmin: true,
-                    shadeClose:false,
-                    content: $('#staffedit')
-                });
-                //表单值
-                form.val("staff_form",{
-                    // "哈哈哈":data.staff_id,
-                    "department_name":data.department_name,
-                    "staff_bankCard":data.staff_bankCard,
-                    "staff_idCard":data.staff_idCard,
-                    "staff_name":data.staff_name,
-                    "staff_phone":data.staff_phone,
-                    "staff_addr":data.staff_addr,
-                    "jointime":layui.util.toDateString(data.jointime,"yyyy-MM-dd")
-                })
-                //表单编辑未完成
-                /*console.log(data);
-                layer.open({
-                    type: 1,
-                    area: ['500px', '700px'],
-                    title: "修改信息",
-                    fixed: false, //不固定
-                    maxmin: true,
-                    shadeClose:false,
-                    content: $('#usersedit')
-                });
-                //表单值
-                form.val("usereditform",{
-                    // "哈哈哈":data.staff_id,
-                    "部门名称":data.department_name,
-                    "银行卡号":data.staff_bankCard,
-                    "身份证号":data.staff_idCard,
-                    "姓名":data.staff_name,
-                    "电话":data.staff_phone,
-                    "住址":data.staff_addr,
-                    "入职时间":data.jointime
-                });*/
+            var layEvent = obj.event;
+            switch (layEvent) {
+                case 'edit':
+                    curIndex = layer.open({
+                        type: 1,
+                        area: ['600px', '600px'],
+                        title: "修改信息",
+                        fixed: false, //不固定
+                        maxmin: true,
+                        shadeClose: false,
+                        content: $('#staff_edit')
+                    });
+                    //表单值
+                    form.val("staff_form", {
+                        // "哈哈哈":data.staff_id,
+                        "staff_id": data.staff_id,
+                        "department_name": data.department_name,
+                        "staff_bankCard": data.staff_bankCard,
+                        "staff_idCard": data.staff_idCard,
+                        "staff_name": data.staff_name,
+                        "staff_phone": data.staff_phone,
+                        "staff_addr": data.staff_addr,
+                        "jointime": layui.util.toDateString(data.jointime, "yyyy-MM-dd")
+                    })
+                    break;
+                case 'delete':
+                    // console.log(obj.data.staff_id)
+                    layer.confirm('确认删除？', function (index) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/staff/delete',
+                            data: {staffId: obj.data.staff_id},
+                            success: function (msg) {
+                                if (msg == 'success') {
+                                    obj.del;
+                                    layer.close(index);
+                                    table.reload('staffTable');
+                                    layer.msg("删除成功", {icon: 6});
+                                } else {
+                                    layer.msg("删除失败", {icon: 5});
+                                }
+                            }
+                        })
+                    })
+                    break;
             }
         });
+
+        form.on('submit(add)', function (data) {
+            // console.log(data.field)
+            $.ajax({
+                url: '/staff/add',
+                type: "POST",
+                data: {staffStr: JSON.stringify(data.field)},
+                success: function (msg) {
+                    if (msg == 'success') {
+                        layer.msg("添加成功！", {icon: 6});
+                        layer.close(curIndex);
+                        table.reload('staffTable');
+                    } else {
+                        layer.close(curIndex);
+                        layer.msg("添加失败！", {icon: 5})
+                    }
+                }
+            })
+            return false;
+        })
+        form.on('submit(update)', function (data) {
+            $.ajax({
+                url: '/staff/update',
+                type: "POST",
+                data: {staffStr: JSON.stringify(data.field)},
+                success: function (msg) {
+                    if (msg == 'success') {
+                        layer.msg("更新成功！", {icon: 6});
+                        layer.close(curIndex);
+                        table.reload('staffTable');
+                    } else {
+                        layer.close(curIndex);
+                        layer.msg("更新失败！", {icon: 5})
+                    }
+                }
+            })
+
+
+            return false;
+        })
+
+
     });
 </script>
 

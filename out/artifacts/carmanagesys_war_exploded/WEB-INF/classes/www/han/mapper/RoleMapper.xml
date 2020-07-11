@@ -4,10 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="www.han.mapper.RoleMapper">
     <select id="getRoles" parameterType="String" resultType="String">
-        select role_name from sh_role where user_id = (
-            select user_id
-            from car.user
-            where user_name = #{userName}
-            )
+        select role_name from sh_role where id = (
+            select role_id from sh_user_role where user_id = (
+             select user_id  from car.user
+                where user_name = #{userName}
+        )
+        )
     </select>
 </mapper>

@@ -25,14 +25,36 @@ public interface StaffService {
      */
     int getCount();
     /**
-     分页查询员工数量
+     删除员工
+     */
+    int delStaff(int staffId);
+
+    /**
+     更新员工信息
+     */
+    int updateStaff(Staff staff);
+
+    /**
+     获取部门名称
+     */
+    List<String> getDepartment();
+    /**
+        增加员工
+     */
+    int addStaff(Staff staff);
+    /**
+
      */
 
     /**
-     分页查询员工数量
+
      */
 
     /**
-     分页查询员工数量
+
+     */
+
+    /**
+
      */
 }

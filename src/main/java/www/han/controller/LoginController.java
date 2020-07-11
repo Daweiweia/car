@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import www.han.pojo.User;
 import www.han.service.UserService;
 /**
  * @author M.han
@@ -55,5 +56,11 @@ public class LoginController {
         }
     }
 
+    @RequestMapping("/register.do")
+    @ResponseBody
+    public String register(User user){
+        System.out.println("注册:"+user);
+        return null;
+    }
 
 }
