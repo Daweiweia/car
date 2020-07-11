@@ -16,6 +16,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Role {
     private int id;
-    private String admin_id;
     private String role_name;
 }

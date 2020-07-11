@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import www.han.pojo.User;
+import www.han.service.RoleService;
 import www.han.service.UserService;
+import www.han.util.ShiroUtil;
+
+import java.util.Random;
+
 /**
  * @author M.han
  * @version V1.0
@@ -25,6 +30,9 @@ import www.han.service.UserService;
 public class LoginController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    RoleService roleService;
     /**
         *功能描述
         * @author Mr.han
@@ -56,11 +64,31 @@ public class LoginController {
         }
     }
 
-    @RequestMapping("/register.do")
-    @ResponseBody
-    public String register(User user){
-        System.out.println("注册:"+user);
-        return null;
-    }
+    @RequestMapping(value = "/register.do",method = RequestMethod.POST)
+    public String register(String user_id,String user_name,String user_password,String user_phone,Model model){
+        User user = new User();
+        user.setUser_id(Integer.parseInt(user_id));
+        user.setUser_name(user_name);
+        user.setUser_password(user_password);
+        user.setUser_phone(user_phone);
 
+        String salt = new Random().nextInt(1000000)+"";
+        user.setSalt(salt);
+        String encryptPassword = ShiroUtil.encryptPassword(user.getUser_password(), user.getSalt());
+        user.setUser_password(encryptPassword);
+        System.out.println("处理后的user数据："+user);
+        int register = userService.register(user);
+        if (register > 0){
+            //进行角色分配
+            int i = roleService.addRole(user.getUser_id());
+            if (i <= 0){
+                model.addAttribute("msg","账号注册成功！角色分配失败，请联系管理要换进行权限分配！");
+                System.out.println("角色分配失败！请手动进行分配！");
+            }
+            model.addAttribute("msg","注册成功！");
+            return "login";
+        }else{
+            return "login";
+        }
+    }
 }

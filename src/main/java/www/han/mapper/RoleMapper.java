@@ -16,4 +16,13 @@ public interface RoleMapper {
         * @return
        */
     Set<String> getRoles(String userName);
+
+    /**
+        *增加一个角色用户
+        * @author Mr.han
+        * @date
+        * @param
+        * @return
+       */
+    int addRole(int userId);
 }

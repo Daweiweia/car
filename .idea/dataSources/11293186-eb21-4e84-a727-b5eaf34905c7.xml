@@ -1434,7 +1434,7 @@
     </column>
     <column id="349" parent="232" name="user_id">
       <Position>2</Position>
-      <DataType>char(11)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="350" parent="232" name="role_id">
@@ -1516,7 +1516,7 @@
     <column id="362" parent="234" name="user_id">
       <Position>2</Position>
       <Comment>用户id</Comment>
-      <DataType>char(11)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="363" parent="234" name="user_name">
@@ -1536,7 +1536,7 @@
     <column id="365" parent="234" name="user_phone">
       <Position>5</Position>
       <Comment>用户电话</Comment>
-      <DataType>int(11)|0s</DataType>
+      <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>

@@ -18,5 +18,5 @@ public interface UserMapper {
 
     User loginByName(String username);
 
-    int register();
+    int register(User user);
 }

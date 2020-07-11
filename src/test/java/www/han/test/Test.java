@@ -10,6 +10,7 @@ import www.han.service.PermService;
 import www.han.service.RoleService;
 import www.han.service.StaffService;
 
+import java.util.Random;
 import java.util.Set;
 
 
@@ -51,5 +52,10 @@ public class Test {
 //        Admin admin = adminService.login("admin", "11111");
 //        System.out.println(admin);
 
+    }
+    @org.junit.Test
+    public void test2(){
+        int i = new Random().nextInt(1000000);
+        System.out.println(i);
     }
 }

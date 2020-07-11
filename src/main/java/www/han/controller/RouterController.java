@@ -44,7 +44,7 @@ public class RouterController {
 
     @RequestMapping("/toLogin")
     public String toLogin() {
-        return "redirect:/login.html";
+        return "login";
     }
 
 /*    @RequestMapping("/logout")

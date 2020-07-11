@@ -11,4 +11,6 @@ public interface UserService {
     User login(String adminName, String adminPwd);
 
     User loginByName(String username);
+
+    int register(User user);
 }

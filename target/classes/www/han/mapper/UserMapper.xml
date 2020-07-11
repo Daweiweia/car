@@ -10,6 +10,6 @@
         select * from `user` where user_name=#{username}
     </select>
     <insert id="register" parameterType="user">
-        insert into user values(#{user_id},#{user_name},#{user_password},#{user_phone},#{salt})
+        insert into user(user_id,user_name,user_password,user_phone,salt) values(#{user_id},#{user_name},#{user_password},#{user_phone},#{salt})
     </insert>
 </mapper>

@@ -43,7 +43,7 @@
                 /router/*=anon
                 /*.html=anon
                 /login.do=anon
-                /register=anon
+                /register.do=anon
                 /logout=logout
                 <!--/staff/**=authc-->
                 <!--/admin/**=authc->

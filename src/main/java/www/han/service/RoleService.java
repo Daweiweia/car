@@ -10,4 +10,5 @@ import java.util.Set;
  */
 public interface RoleService {
     Set<String> getRoles(String userName);
+    int addRole(int userId);
 }

@@ -16,4 +16,9 @@ public class RoleServiceImpl implements RoleService {
     public Set<String> getRoles(String userName) {
         return roleMapper.getRoles(userName);
     }
+
+    @Override
+    public int addRole(int userId) {
+        return roleMapper.addRole(userId);
+    }
 }

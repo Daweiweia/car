@@ -11,4 +11,8 @@
         )
         )
     </select>
+    <!--默认注册的角色为等级2对应的是user-->
+    <insert id="addRole" parameterType="int">
+        insert into sh_user_role (user_id,role_id) values (#{userId},2)
+    </insert>
 </mapper>
