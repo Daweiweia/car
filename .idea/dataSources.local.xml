@@ -2,35 +2,12 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="@localhost" uuid="11293186-eb21-4e84-a727-b5eaf34905c7">
-      <database-info product="MySQL" version="5.5.28" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.47 ( Revision: fe1903b1ecb4a96a917f7ed3190d80c049b1de29 )" dbms="MYSQL" exact-version="5.5.28" exact-driver-version="5.1">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema">
-            <name qname="@" />
-            <name qname="car" />
-          </node>
-        </introspection-scope>
-      </schema-mapping>
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <schema-mapping />
     </data-source>
     <data-source name="@localhost [2]" uuid="8013e99e-2956-4100-9c90-8ca03503b08e">
-      <database-info product="MySQL" version="5.5.28" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.47 ( Revision: fe1903b1ecb4a96a917f7ed3190d80c049b1de29 )" dbms="MYSQL" exact-version="5.5.28" exact-driver-version="5.1">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="car" />
-        </introspection-scope>
-      </schema-mapping>
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <schema-mapping />
     </data-source>
   </component>
 </project>
