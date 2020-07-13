@@ -7,4 +7,8 @@ target
 out
 *.iml
 *.idea
+<<<<<<< HEAD
 log
+=======
+log
+>>>>>>> 6c4a60b31b2c01daabe99dfb210a14f7ef8ceb3e
