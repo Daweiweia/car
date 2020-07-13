@@ -7,12 +7,12 @@
 </head>
 <body>
 <div>
- <span class="layui-breadcrumb">
-     <a href="/router/toMain">首页</a>
+    当前位置：
+    <span class="layui-breadcrumb">
+     <a><cite>首页</cite></a>
      </span>
 
     <div style="padding: 20px; background-color: #F2F2F2;">
-
         <div class="welcom-info">
             <h2>欢迎使用汽车销售后台管理系统 ——<span style="color:green;font-size: 14px " id="current-time"></span></h2>
         </div>
@@ -36,7 +36,7 @@
                 <div class="layui-card">
                     <div class="layui-card-header">功能描述</div>
                     <div class="layui-card-body">
-                       针对汽车销售的后台管理系统，包含了员工信息、车辆信息、订单客户以及部门信息的查看与管理...
+                        针对汽车销售的后台管理系统，包含了员工信息、车辆信息、订单客户以及部门信息的查看与管理...
                     </div>
                 </div>
             </div>
@@ -82,10 +82,10 @@
 
 <script src="../../static/lib/layui/layui.js"></script>
 <script type="text/javascript">
-    layui.use(['element','jquery'], function () {
+    layui.use(['element', 'jquery'], function () {
         var element = layui.element
         var $ = layui.jquery
-        setInterval(function() {
+        setInterval(function () {
             var now = (new Date()).toLocaleString();
             $('#current-time').text(now);
         }, 1000);

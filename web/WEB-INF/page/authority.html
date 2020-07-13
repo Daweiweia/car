@@ -6,22 +6,55 @@
     <link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
 </head>
 <body>
-<h1>权限管理页面</h1>
-<table class="layui-hide" id="perm_form" lay-filter="staff_filter">
+<div>
+    当前位置：
+    <span class="layui-breadcrumb">
+     <a href="/router/toMain">首页</a>
+     <a><cite>权限管理</cite></a>
+     </span>
+</div>
+
+<div id="role_change" style="display: none;">
+    <form class="layui-form" lay-filter="role_form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户id</label>
+            <div class="layui-input-inline department_name">
+                <input type="text" disabled name="user_id" autocomplete="off" placeholder=""
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择权限</label>
+            <div class="layui-input-block department_name">
+                <select name="role_id" lay-filter="">
+                    <option value="1" selected>管理员权限</option>
+                    <option value="2">普通用户</option>
+                </select>
+            </div>
+        </div>
+        <button class="layui-btn" lay-submit lay-filter="change-role"><span
+                class="layui-icon layui-icon-release"></span>提交
+        </button>
+    </form>
+</div>
+<table class="layui-hide" id="perm_form" lay-filter="role_filter">
 </table>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+    <a shiro:hasPermission="role:changePerm" class="layui-btn layui-btn-xs" lay-event="changeAuth">更改权限</a>
+    <span shiro:lacksPermission="role:changePerm">没有操作权限</span>
 </script>
 
 
 <script src="../../static/lib/layui/layui.js"></script>
 <script>
-    layui.use(['table', 'layer', 'jquery', 'form'], function () {
+    layui.use(['table', 'layer', 'jquery', 'form', 'element'], function () {
         var table = layui.table;
         var layer = layui.layer;
         var $ = layui.jquery;
+        var form = layui.form
+        var element = layui.element
 
         table.render({
             elem: '#perm_form'
@@ -31,6 +64,7 @@
             , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'}
+                    , {field: 'user_id', title: '用户id', width: 120,}
                     , {field: 'user_name', title: '用户', width: 120,}
                     , {field: 'role_name', title: '对应角色', width: 120,}
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
@@ -44,6 +78,50 @@
                 , limitName: 'pageSize' //每页数据量的参数名，默认：limit
             }
         });
+
+        table.on('tool(role_filter)', function (obj) {
+            var data = obj.data;
+            console.log(data)
+            console.log("进来了")
+            var layEvent = obj.event;
+            switch (layEvent) {
+                case 'changeAuth':
+                    curIndex = layer.open({
+                        type: 1,
+                        area: ['600px', '600px'],
+                        title: "修改信息",
+                        fixed: false, //不固定
+                        maxmin: true,
+                        shadeClose: false,
+                        content: $('#role_change')
+                    });
+                    //表单值
+                    form.val("role_form", {
+                        "user_id": data.user_id,
+                    })
+                    break;
+            }
+        });
+        form.on('submit(change-role)', function (data) {
+            console.log(data)
+            // console.log(data.field)
+            $.ajax({
+                url: '/role/changePerm',
+                type: "POST",
+                data: {user_id: data.field.user_id, role_id: data.field.role_id},
+                success: function (msg) {
+                    if (msg == 'success') {
+                        layer.msg("修改成功！", {icon: 6});
+                        layer.close(curIndex);
+                        table.reload('roleTable');
+                    } else {
+                        layer.close(curIndex);
+                        layer.msg("修改失败！", {icon: 5})
+                    }
+                }
+            })
+            return false;
+        })
     })
 </script>
 </body>

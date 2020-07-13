@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import www.han.pojo.RoleToUser;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -33,9 +34,11 @@ public interface RoleMapper {
      * 得到总角色数量
      */
     int getRoleSize();
-/**
- * 增加一个角色用户
- */
+
+    /**
+     * 更改用户对应的角色（更改权限）
+     */
+    int changeRole(Map map);
 /**
  * 增加一个角色用户
  */

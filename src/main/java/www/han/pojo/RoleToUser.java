@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleToUser {
+    private int user_id;
     private String user_name;
     private String role_name;
 }

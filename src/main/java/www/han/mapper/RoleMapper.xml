@@ -15,13 +15,34 @@
     <insert id="addRole" parameterType="int">
         insert into sh_user_role (user_id,role_id) values (#{userId},2)
     </insert>
-    <select id="getRoleListLimit" parameterType="int" resultType="roleToUser">
+<!--    <select id="getRoleListLimit" parameterType="int" resultType="roleToUser">
         select user_name,role_name from user,sh_role,sh_user_role
         where sh_user_role.user_id = user.user_id
         and sh_user_role.role_id = sh_role.id
         limit #{start},#{pageSize}
+    </select>-->
+    
+    <select id="getRoleListLimit" parameterType="int" resultMap="getRole">
+        select * from sh_user_role limit #{start},#{pageSize}
     </select>
+    <resultMap id="getRole" type="roleToUser">
+        <result property="user_id" column="user_id"></result>
+        <association property="user_name" column="user_id" javaType="String" select="getUserName"></association>
+        <association property="role_name" column="role_id" javaType="String" select="getRoleName"/>
+    </resultMap>
+    
+    <select id="getUserName" resultType="String">
+        select user_name from user where user_id=#{user_id}
+    </select>
+    <select id="getRoleName" resultType="String">
+        select role_name from sh_role where id=#{role_id}
+    </select>
+
     <select id="getRoleSize" resultType="int">
         select count(1) from sh_user_role
     </select>
+
+    <update id="changeRole" parameterType="map">
+        update sh_user_role set role_id=#{role_id} where user_id=#{user_id}
+    </update>
 </mapper>

@@ -21,7 +21,7 @@ public class UserServiceImplTest extends TestCase {
 
     @Test
     public void test() {
-        List<RoleToUser> roleListLimit = roleService.getRoleListLimit(0, 2);
+        List<RoleToUser> roleListLimit = roleService.getRoleListLimit(0, 3);
         System.out.println(roleListLimit);
     }
 }

@@ -3,8 +3,16 @@
     <meta charset="UTF-8">
     <title>员工信息</title>
 
-</head><link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
+</head>
+<link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
 <body>
+<div>
+    当前位置：
+    <span class="layui-breadcrumb">
+     <a href="/router/toMain">首页</a>
+     <a><cite>员工管理</cite></a>
+     </span>
+</div>
 <div id="staff_edit" style="display: none;">
     <form class="layui-form" lay-filter="staff_form">
         <div class="layui-form-item">
@@ -88,7 +96,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">所属部门</label>
             <div class="layui-input-block department_name">
-                <select  name="department_name" lay-filter="">
+                <select name="department_name" lay-filter="">
                     <option value="销售部" selected>销售部</option>
                     <option value="维修部">维修部</option>
                 </select>
@@ -165,13 +173,14 @@
 <script src="../../static/lib/layui/layui.js"></script>
 
 <script>
-    layui.use(['table', 'layer', 'jquery', 'form'], function () {
+    layui.use(['table', 'layer', 'jquery', 'form','element'], function () {
         var table = layui.table;
         var layer = layui.layer;
         var $ = layui.jquery;
         var form = layui.form;
+        var element = layui.element
         var curIndex;
-        var departments = '好伐';
+
 
         table.render({
             elem: '#staff_form'
@@ -237,7 +246,8 @@
                         shadeClose: false,
                         content: $('#staff_add')
                     });
-            };
+            }
+            ;
         });
 
 
@@ -326,8 +336,6 @@
                     }
                 }
             })
-
-
             return false;
         })
 

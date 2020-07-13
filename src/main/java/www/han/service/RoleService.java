@@ -1,5 +1,6 @@
 package www.han.service;
 
+import org.apache.ibatis.annotations.Param;
 import www.han.pojo.RoleToUser;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface RoleService {
     int addRole(int userId);
     List<RoleToUser> getRoleListLimit(int start, int pageSize);
     int getRoleSize();
+    /**
+     * 更改用户对应的角色（更改权限）
+     */
+    int changeRole(int user_id, int role_id);
 }
