@@ -15,4 +15,13 @@
     <insert id="addRole" parameterType="int">
         insert into sh_user_role (user_id,role_id) values (#{userId},2)
     </insert>
+    <select id="getRoleListLimit" parameterType="int" resultType="roleToUser">
+        select user_name,role_name from user,sh_role,sh_user_role
+        where sh_user_role.user_id = user.user_id
+        and sh_user_role.role_id = sh_role.id
+        limit #{start},#{pageSize}
+    </select>
+    <select id="getRoleSize" resultType="int">
+        select count(1) from sh_user_role
+    </select>
 </mapper>

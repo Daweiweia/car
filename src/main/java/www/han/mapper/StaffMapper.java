@@ -48,8 +48,9 @@ public interface StaffMapper {
      */
     int addStaff(Staff staff);
     /**
-
+     * 查询数据库中是否已经存在该id
      */
+    String selectById(int staff_id);
     /**
 
      */

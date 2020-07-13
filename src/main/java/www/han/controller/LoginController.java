@@ -54,7 +54,7 @@ public class LoginController {
             subject.login(token);//执行登录，在用户认证的里面去认证用户名和密码
             Session session=subject.getSession();
             session.setAttribute("subject", subject);
-            return "index";//上面登录通过了转到首页
+            return "redirect:/router/toIndex";//上面登录通过了转到首页
         }catch (UnknownAccountException e){//用户名不存在
             model.addAttribute("msg","用户名不存在");
             return "login";

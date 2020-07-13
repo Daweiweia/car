@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminRole {
+public class UserRole {
     private int id;
-    private String admin_id;
+    private String user_id;
     private int role_id;
 }

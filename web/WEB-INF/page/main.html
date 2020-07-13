@@ -1,19 +1,95 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
-	</head>
-	<body>
-		<h1>这是首页大哥
-		</h1>
-		<span th:text="${msg}"></span>
-		<script src="../../static/lib/layui/layui.js"></script>
-		<script type="text/javascript">
-			layui.use('element',function(){
-				var element = layui.element
-			})
-		</script>
-	</body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
+</head>
+<body>
+<div>
+ <span class="layui-breadcrumb">
+     <a href="/router/toMain">首页</a>
+     </span>
+
+    <div style="padding: 20px; background-color: #F2F2F2;">
+
+        <div class="welcom-info">
+            <h2>欢迎使用汽车销售后台管理系统 ——<span style="color:green;font-size: 14px " id="current-time"></span></h2>
+        </div>
+        <br><br>
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">系统信息</div>
+                    <div class="layui-card-body">
+                        系统版本：v1.0
+                    </div>
+                    <div class="layui-card-body">
+                        开发作者：Mr.han
+                    </div>
+                    <div class="layui-card-body">
+                        系统版本：v1.0
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">功能描述</div>
+                    <div class="layui-card-body">
+                       针对汽车销售的后台管理系统，包含了员工信息、车辆信息、订单客户以及部门信息的查看与管理...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>备用区</legend>
+    </fieldset>
+
+    <div class="layui-collapse" lay-filter="test">
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title">备用1</h2>
+            <div class="layui-colla-content">
+                <p>
+                    哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈!
+                </p>
+            </div>
+        </div>
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title">备用2</h2>
+            <div class="layui-colla-content">
+                <p>
+                    哈哈哈哈
+                </p>
+            </div>
+        </div>
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title">备用3</h2>
+            <div class="layui-colla-content">
+                <p>哈哈</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<shiro:notAuthenticated>
+    <span>请先<a href="/router/toLogin">登录</a></span>
+</shiro:notAuthenticated>
+</div>
+
+
+<script src="../../static/lib/layui/layui.js"></script>
+<script type="text/javascript">
+    layui.use(['element','jquery'], function () {
+        var element = layui.element
+        var $ = layui.jquery
+        setInterval(function() {
+            var now = (new Date()).toLocaleString();
+            $('#current-time').text(now);
+        }, 1000);
+    })
+</script>
+</body>
 </html>

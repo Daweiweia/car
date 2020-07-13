@@ -3,3 +3,8 @@
 /temp        #仅忽略项目根目录下的TODO文件,不包括其它目录temp
 build/       #忽略build/目录下的所有文件
 doc/*.txt
+target
+out
+*.iml
+*.idea
+log

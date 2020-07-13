@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/router")
 public class RouterController {
- /*   @RequestMapping("/toIndex")
+    @RequestMapping("/toIndex")
     public String toIndex(){
         return "index";
-    }*/
+    }
     @RequestMapping("/toMain")
     public String toMain() {
         return "main";

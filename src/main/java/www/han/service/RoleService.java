@@ -1,5 +1,8 @@
 package www.han.service;
 
+import www.han.pojo.RoleToUser;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,4 +14,6 @@ import java.util.Set;
 public interface RoleService {
     Set<String> getRoles(String userName);
     int addRole(int userId);
+    List<RoleToUser> getRoleListLimit(int start, int pageSize);
+    int getRoleSize();
 }

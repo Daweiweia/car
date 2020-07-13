@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>权限管理页面</title>
+    <link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
 </head>
 <body>
 <h1>权限管理页面</h1>
+<table class="layui-hide" id="perm_form" lay-filter="staff_filter">
+</table>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+</script>
+
+
+<script src="../../static/lib/layui/layui.js"></script>
+<script>
+    layui.use(['table', 'layer', 'jquery', 'form'], function () {
+        var table = layui.table;
+        var layer = layui.layer;
+        var $ = layui.jquery;
+
+        table.render({
+            elem: '#perm_form'
+            , url: '/role/roleList'
+            , title: '用户权限表'
+            , id: 'roleTable'
+            , cols: [
+                [
+                    {type: 'checkbox', fixed: 'left'}
+                    , {field: 'user_name', title: '用户', width: 120,}
+                    , {field: 'role_name', title: '对应角色', width: 120,}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                ]
+            ]
+            , page: true
+            , limits: [5, 10, 15, 70]
+            , limit: 5
+            , request: {
+                pageName: 'currentPageNo' //页码的参数名称，默认：page
+                , limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            }
+        });
+    })
+</script>
 </body>
 </html>

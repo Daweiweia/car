@@ -2,8 +2,8 @@
 <head>
     <meta charset="UTF-8">
     <title>员工信息</title>
-    <link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
-</head>
+
+</head><link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
 <body>
 <div id="staff_edit" style="display: none;">
     <form class="layui-form" lay-filter="staff_form">
@@ -179,7 +179,6 @@
             , toolbar: '#toolbar_head'
             , title: '用户数据表'
             , id: 'staffTable'
-            // ,totalRow: true
             , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'}
@@ -229,21 +228,6 @@
                     layer.msg('选中了：' + data.length + ' 个');
                     break;
                 case 'addStaff':
-                    /*$.ajax({
-                        url: '/staff/getDepartment',
-                        type: "POST",
-                        success: function (data) {
-                            var html=`<select  name="department_name" lay-filter="">
-              `
-                            let parse = JSON.parse(data);
-                            for (let parseKey in parse) {
-                                console.log(parse[parseKey]);
-                                html =html + '<option value="' + parse[parseKey] + '">' + parse[parseKey] + '</option>';
-                            }
-                            html +=`</select>`
-                            $(".department_sel").html(html)
-                        }
-                    })*/
                     curIndex = layer.open({
                         type: 1,
                         area: ['600px', '600px'],

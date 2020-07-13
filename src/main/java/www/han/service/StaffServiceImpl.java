@@ -60,5 +60,10 @@ public class StaffServiceImpl implements StaffService {
         return staffMapper.addStaff(staff);
     }
 
+    @Override
+    public String selectById(int staff_id) {
+        return staffMapper.selectById(staff_id);
+    }
+
 
 }

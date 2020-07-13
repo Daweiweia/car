@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import www.han.pojo.Staff;
 import www.han.service.StaffService;
-import www.han.util.StaffJsonUtil;
+import www.han.util.JsonUtil;
 
 import java.util.List;
 
@@ -28,21 +28,22 @@ public class StaffController {
     StaffService staffService;
 
     /**
-        *员工信息修改
-        * @author Mr.han
-        * @date
-        * @param
-        * @return
-       */
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
+     * 员工信息修改
+     *
+     * @param
+     * @return
+     * @author Mr.han
+     * @date
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public String staffUpdate(String staffStr) throws JsonProcessingException {
         System.out.println("------------------进来了staffUpdate哦-----------------------------");
-        Staff staff =   new ObjectMapper().readValue(staffStr, Staff.class);
+        Staff staff = new ObjectMapper().readValue(staffStr, Staff.class);
         int i = staffService.updateStaff(staff);
-        if (i > 0){
+        if (i > 0) {
             return "success";
-        }else {
+        } else {
             return "fail";
         }
     }
@@ -63,33 +64,34 @@ public class StaffController {
         } else {
             pageCount = count / pageSize + 1;
         }
-        if (currentPageNo > pageCount){
+        if (currentPageNo > pageCount) {
             start = pageCount;
-        }else {
-            start = (currentPageNo-1)*pageSize;
+        } else {
+            start = (currentPageNo - 1) * pageSize;
         }
 
-        StaffJsonUtil staffJson = new StaffJsonUtil();
+        JsonUtil staffJson = new JsonUtil<Staff>();
         staffJson.setCode(0);
         staffJson.setCount(count);
         staffJson.setMsg("");
-        staffJson.setData(staffService.staffListLimit(start,pageSize));
+        staffJson.setData(staffService.staffListLimit(start, pageSize));
 
         String staffs = new ObjectMapper().writeValueAsString(staffJson);
 //        System.out.println(staffs);
         return staffs;
     }
+
     /**
-        删除一条员工信息
+     * 删除一条员工信息
      */
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public String staffDel(int staffId){
-        System.out.println("delete得到的数据："+staffId);
+    public String staffDel(int staffId) {
+        System.out.println("delete得到的数据：" + staffId);
         int del = staffService.delStaff(staffId);
-        if (del > 0){
+        if (del > 0) {
             return "success";
-        }else{
+        } else {
             return "fail";
         }
 
@@ -101,19 +103,26 @@ public class StaffController {
     public String getDepartment() throws JsonProcessingException {
         List<String> department = staffService.getDepartment();
         String s = new ObjectMapper().writeValueAsString(department);
-        System.out.println("得到的部门名称"+s);
+        System.out.println("得到的部门名称" + s);
         return s;
     }
+
     @RequestMapping("/add")
     @ResponseBody
     public String addStaff(String staffStr) throws JsonProcessingException {
         Staff staff = new ObjectMapper().readValue(staffStr, Staff.class);
         System.out.println(staff);
-        int i = staffService.addStaff(staff);
-        if (i > 0){
-            return "success";
-        }else{
+        String isExit = staffService.selectById(staff.getStaff_id());
+        if (isExit != null) {
             return "fail";
+        } else {
+            int i = staffService.addStaff(staff);
+            System.out.println("增加结果：" + i);
+            if (i > 0) {
+                return "success";
+            } else {
+                return "fail";
+            }
         }
     }
 }

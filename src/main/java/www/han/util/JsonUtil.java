@@ -19,9 +19,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StaffJsonUtil {
+public class JsonUtil<T> {
     private int code;
     private String msg;
     private int count;
-    List<Staff> data;
+    List<T> data;
 }

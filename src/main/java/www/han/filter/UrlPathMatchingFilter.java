@@ -33,10 +33,11 @@ public class UrlPathMatchingFilter extends PathMatchingFilter {
         }
         System.out.println("permService-----"+permService);
         boolean needInterceptor = permService.needInterceptor(requestUrl);
-
+        System.out.println("是否需要权限验证："+needInterceptor);
 
         if(!needInterceptor){
             // 数据库里存放的所有URL都是需要相关权限的, 一个requestURL进来, 如果数据库里不含有该url,说明这是一个不需要权限的url, 直接放行
+
             return true;
         }else{
             boolean hasPermission = false;

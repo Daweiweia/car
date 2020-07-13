@@ -30,6 +30,9 @@
         select department_name from department
     </select>
     <insert id="addStaff" parameterType="staff">
-        insert into staff values (#{staff_id},#{department_name},#{staff_name},#{staff_phone},#{staff_addr},#{jointime},#{staff_bankCard},#{staff_idCard})
+        insert into staff(staff_id,department_name,staff_name,staff_phone,staff_addr,jointime,staff_bankCard,staff_idCard) values (#{staff_id},#{department_name},#{staff_name},#{staff_phone},#{staff_addr},#{jointime},#{staff_bankCard},#{staff_idCard})
     </insert>
+    <select id="selectById" parameterType="int" resultType="String">
+        select staff_name from staff where staff_id=#{staff_id}
+    </select>
 </mapper>
