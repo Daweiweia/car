@@ -29,11 +29,6 @@ public class StaffController {
 
     /**
      * 员工信息修改
-     *
-     * @param
-     * @return
-     * @author Mr.han
-     * @date
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
@@ -69,7 +64,6 @@ public class StaffController {
         } else {
             start = (currentPageNo - 1) * pageSize;
         }
-
         JsonUtil staffJson = new JsonUtil<Staff>();
         staffJson.setCode(0);
         staffJson.setCount(count);
@@ -94,8 +88,6 @@ public class StaffController {
         } else {
             return "fail";
         }
-
-
     }
 
     @RequestMapping("/getDepartment")

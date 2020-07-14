@@ -4,12 +4,12 @@
     <title>员工信息</title>
 
 </head>
-<link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
+<link rel="stylesheet" th:href="@{../../static/lib/layui/css/layui.css}">
 <body>
 <div>
     当前位置：
     <span class="layui-breadcrumb">
-     <a href="/router/toMain">首页</a>
+     <a th:href="@{/router/toMain}">首页</a>
      <a><cite>员工管理</cite></a>
      </span>
 </div>
@@ -170,7 +170,7 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete" shiro:hasPermission="staff:delete">删除</a>
 </script>
 <!--<span th:text="${msg}"></span>-->
-<script src="../../static/lib/layui/layui.js"></script>
+<script th:src="@{../../static/lib/layui/layui.js}"></script>
 
 <script>
     layui.use(['table', 'layer', 'jquery', 'form','element'], function () {

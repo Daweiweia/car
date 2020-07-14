@@ -16,10 +16,6 @@ public class UrlPathMatchingFilter extends PathMatchingFilter {
     @Autowired
      PermService permService;
 
-  /*  public void setPermService(PermService permService) {
-        this.permService = permService;
-    }*/
-
     @Override
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         System.out.println("进来了PathMatchingFilter");

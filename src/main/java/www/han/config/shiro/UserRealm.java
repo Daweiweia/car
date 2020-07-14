@@ -30,17 +30,15 @@ public class UserRealm extends AuthorizingRealm {
     //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("执行了授权+===》doGetAuthorizationInfo");
-        //能进入到这里，表示账号已经通过验证了
+        //账号已经通过验证了
         String userName =(String) principalCollection.getPrimaryPrincipal();
         System.out.println("授权中得到的userName："+userName);
         //通过service获取角色和权限
         Set<String> permissions = permService.getPerms(userName);
-        for (String permission : permissions) {
+     /*   for (String permission : permissions) {
             System.out.println("permissons---"+permission);
-        }
+        }*/
         Set<String> roles = roleService.getRoles(userName);
-
         //授权对象
         SimpleAuthorizationInfo s = new SimpleAuthorizationInfo();
         //把通过service获取到的角色和权限放进去

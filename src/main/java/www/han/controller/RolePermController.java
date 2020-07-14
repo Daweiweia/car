@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import www.han.pojo.RoleToUser;
@@ -15,11 +14,6 @@ import www.han.util.JsonUtil;
 
 /**
  * 角色控制
- *
- * @param
- * @author Mr.han
- * @date
- * @return
  */
 @Controller
 @RequestMapping("/role")
@@ -34,9 +28,14 @@ public class RolePermController {
     @ResponseBody
     public String getRoleList(@RequestParam("currentPageNo") int currentPageNo,
                               @RequestParam("pageSize") int pageSize) throws JsonProcessingException {
+//        Pager<RoleToUser> rolePager = new Pager<RoleToUser>();
         int start = 0;//查询开始位置
         int pageCount;//总页面数
-        int count = roleService.getRoleSize();//数据总行数
+        int count = roleService.getRoleSize();
+        /*rolePager.setCount(roleService.getRoleSize());//数据总行数
+        rolePager.setCurrentPageNo(currentPageNo);//当前页面
+        rolePager.setPageSize(pageSize);//页面数据量大小*/
+
         if (count % pageSize == 0) {
             pageCount = count / pageSize;
         } else {
@@ -64,9 +63,9 @@ public class RolePermController {
         int roleId = Integer.parseInt(role_id);
 
         int change = roleService.changeRole(userId, roleId);
-        if (change > 0){
+        if (change > 0) {
             return "success";
-        }else{
+        } else {
             return "fail";
         }
 

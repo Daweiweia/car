@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title></title>
-    <link rel="stylesheet" href="../../static/lib/layui/css/layui.css">
+    <link rel="stylesheet" th:href="@{../../static/lib/layui/css/layui.css}">
 </head>
 <body>
 <div>
@@ -75,12 +75,12 @@
 
 
 <shiro:notAuthenticated>
-    <span>请先<a href="/router/toLogin">登录</a></span>
+    <span>请先<a th:href="@{/router/toLogin}">登录</a></span>
 </shiro:notAuthenticated>
 </div>
 
 
-<script src="../../static/lib/layui/layui.js"></script>
+<script th:src="@{../../static/lib/layui/layui.js}"></script>
 <script type="text/javascript">
     layui.use(['element', 'jquery'], function () {
         var element = layui.element

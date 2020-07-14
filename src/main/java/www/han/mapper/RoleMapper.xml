@@ -23,7 +23,7 @@
     </select>-->
     
     <select id="getRoleListLimit" parameterType="int" resultMap="getRole">
-        select * from sh_user_role limit #{start},#{pageSize}
+        select * from sh_user_role where user_id not like 10001 limit #{start},#{pageSize}
     </select>
     <resultMap id="getRole" type="roleToUser">
         <result property="user_id" column="user_id"></result>
