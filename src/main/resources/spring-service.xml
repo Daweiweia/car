@@ -29,6 +29,8 @@
     <bean id="permServiceImpl" class="www.han.service.PermServiceImpl">
         <property name="permMapper" ref="permMapper"/>
     </bean>
+    <bean id="carServiceImpl" class="www.han.service.CarServiceImpl">
+    </bean>
 <!--    <bean class="www.han.filter.UrlPathMatchingFilter">
        <property name="permService" ref="permServiceImpl"/>
     </bean>-->

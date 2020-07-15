@@ -1,10 +1,401 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>汽车信息</title>
+    <link rel="stylesheet" th:href="@{../../static/lib/layui/css/layui.css}">
 </head>
 <body>
-   <h1>车辆信息页面</h1>
+<div>
+    当前位置：
+    <span class="layui-breadcrumb">
+        <a th:href="@{/router/toMain}">首页</a>
+        <a><cite>车辆信息</cite></a>
+     </span>
+
+    <!--图片显示-->
+    <script type="text/html" id="imgTemp">
+<!--         <span>{{window.document.location.href.substring(0,window.document.location.href.indexOf(window.document.location.pathname))}}/car_images/{{d.car_image}}</span>-->
+        <img src="{{window.document.location.href.substring(0,window.document.location.href.indexOf(window.document.location.pathname))}}/car_images/{{d.car_image}}" style="width: 100%;height: 100%"/>
+    </script>
+    <!--顶部操作-->
+    <script type="text/html" id="toolbar_head">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+            <button class="layui-btn layui-btn-sm" lay-event="addCar">新增</button>
+        </div>
+    </script>
+    <!--图片上传-->
+    <div id="car_image" style="display:none">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend>请选择需要上传的图片</legend>
+        </fieldset>
+        <form id="upload_image" lay-filter="upload_image" class="layui-form" style="display: none">
+            编号：<input type="text" name="car_id" value="" id="car_id_image" class="layui-input-inline"/>
+        </form>
+
+        <div class="layui-upload">
+            <button type="button" class="layui-btn layui-btn-normal" id="pickFile">选择文件</button>
+            <button type="button" class="layui-btn" id="upload">开始上传</button>
+        </div>
+    </div>
+
+    <!--编辑表单-->
+    <div id="car_edit" style="display: none;">
+        <form class="layui-form" lay-filter="car_form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">汽车编号</label>
+                <div class="layui-input-inline">
+                    <input type="text" disabled="false" name="car_id" lay-verify="number" autocomplete="off"
+                           placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">汽车类型</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="car_type" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">汽车名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="car_name" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">汽车颜色</label>
+                <div class="layui-input-inline">
+                    <!--                lay-verify="identity"-->
+                    <input type="text" name="car_color" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">库存量</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="car_stock" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">厂商名称</label>
+                <div class="layui-input-inline">
+                    <!--                lay-verify="phone"-->
+                    <input type="text" name="manufactor_name" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">出厂时间</label>
+                <div class="layui-input-inline">
+                    <input type="date" name="manufactor_date" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">出厂价格</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="manufactor_price" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+
+            <button class="layui-btn" lay-submit lay-filter="update"><span
+                    class="layui-icon layui-icon-release"></span>提交
+            </button>
+            <button type="reset" class="layui-btn layui-btn-primary"><span
+                    class="layui-icon layui-icon-refresh"></span>清空
+            </button>
+        </form>
+    </div>
+    <!--增加车辆信息-->
+    <div id="car_add" style="display: none;">
+        <form class="layui-form" lay-filter="car_form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">汽车编号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="car_id" lay-verify="number" autocomplete="off"
+                           placeholder="" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">汽车类型</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="car_type" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">汽车名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="car_name" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">汽车颜色</label>
+                <div class="layui-input-inline">
+                    <!--                lay-verify="identity"-->
+                    <input type="text" name="car_color" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">库存量</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="car_stock" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">厂商名称</label>
+                <div class="layui-input-inline">
+                    <!--                lay-verify="phone"-->
+                    <input type="text" name="manufactor_name" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">出厂时间</label>
+                <div class="layui-input-inline">
+                    <input type="date" name="manufactor_date" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">出厂价格</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="manufactor_price" autocomplete="off" placeholder=""
+                           class="layui-input">
+                </div>
+            </div>
+
+            <button class="layui-btn" lay-submit lay-filter="add"><span
+                    class="layui-icon layui-icon-release"></span>提交
+            </button>
+            <button type="reset" class="layui-btn layui-btn-primary"><span
+                    class="layui-icon layui-icon-refresh"></span>清空
+            </button>
+        </form>
+    </div>
+    <table class="layui-hide" id="car_form" lay-filter="car_filter">
+    </table>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="upload">修改/添加图片</a>
+    </script>
+</div>
+<script th:src="@{../../static/lib/layui/layui.js}"></script>
+<script>
+    layui.use(['table', 'layer', 'upload', 'jquery', 'form', 'element'], function () {
+        var table = layui.table;
+        var layer = layui.layer;
+        var $ = layui.jquery;
+        var form = layui.form;
+        var element = layui.element
+        var upload = layui.upload
+        var curIndex;
+
+        //选完文件后不自动上传
+        upload.render({
+            elem: '#pickFile'
+            , url: '/car/upload' //改成您自己的上传接口
+            , auto: false
+            //,multiple: true
+            , bindAction: '#upload'
+            , before: function (obj) {
+                this.data = {"carId": $("#car_id_image").val()}
+                // this.data={"car_id":}
+            }
+            , done: function (res) {
+                if (res.code == 0) {
+                    layer.close(curIndex);
+                    table.reload('carTable');
+                    layer.alert("上传成功！",{icon:6})
+                } else {
+                    layer.alert("上传失败！",{icon:5});
+                }
+            }
+        });
+        table.render({
+            elem: '#car_form'
+            , url: '/car/carList'
+            , toolbar: '#toolbar_head'
+            , title: '用户数据表'
+            , id: 'carTable'
+            , cols: [
+                [
+                    {type: 'checkbox', fixed: 'left'}
+                    , {
+                    field: 'car_id',
+                    title: '汽车编号',
+                    width: 100,
+                    fixed: 'left',
+                    unresize: true,
+                    sort: true,
+                    totalRowText: '合计'
+                }
+                    , {field: 'car_type', title: '汽车类型', width: 120,}
+                    , {field: 'car_name', title: '汽车名', width: 120,}
+                    , {field: 'car_color', title: '汽车颜色', width: 100,}
+                    , {field: 'car_stock', title: '库存量', width: 80, totalRow: true}
+                    , {field: 'manufactor_name', title: '生产商', width: 120,}
+                    , {
+                    field: 'manufactor_date',
+                    title: '出厂时间',
+                    width: 120,
+                    templet: '<div>{{layui.util.toDateString(d.manufactor_date,"yyyy-MM-dd")}}</div>'
+                }
+                    , {field: 'manufactor_price', title: '出厂价格', width: 100, totalRow: true}
+                    , {field: 'car_image', title: '汽车照片', width: 100, templet: '#imgTemp'}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 250}
+                ]
+            ]
+            , page: true
+            , limits: [5, 10, 15, 70]
+            , limit: 5
+            , request: {
+                pageName: 'currentPageNo' //页码的参数名称，默认：page
+                , limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            }
+        });
+        //工具栏事件
+        table.on('toolbar(car_filter)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                    break;
+                case 'addCar':
+                    curIndex = layer.open({
+                        type: 1,
+                        area: ['600px', '600px'],
+                        title: "增加车辆信息",
+                        fixed: false, //不固定
+                        maxmin: true,
+                        shadeClose: false,
+                        content: $('#car_add')
+                    });
+            }
+            ;
+        });
+
+        table.on('tool(car_filter)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+            switch (layEvent) {
+                case 'edit':
+                    curIndex = layer.open({
+                        type: 1,
+                        area: ['600px', '600px'],
+                        title: "修改信息",
+                        fixed: false, //不固定
+                        maxmin: true,
+                        shadeClose: false,
+                        content: $('#car_edit')
+                    });
+                    //表单值
+                    form.val("car_form", {
+                        // "哈哈哈":data.staff_id,
+                        "car_id": data.car_id,
+                        "car_type": data.car_type,
+                        "car_name": data.car_name,
+                        "car_color": data.car_color,
+                        "car_stock": data.car_stock,
+                        "manufactor_name": data.manufactor_name,
+                        "manufactor_date": layui.util.toDateString(data.manufactor_date, "yyyy-MM-dd"),
+                        "manufactor_price": data.manufactor_price
+                    })
+                    break;
+                case 'delete':
+                    // console.log(obj.data.staff_id)
+                    layer.confirm('确认删除？', function (index) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/car/delete',
+                            data: {carId: obj.data.car_id},
+                            success: function (msg) {
+                                if (msg == 'success') {
+                                    obj.del;
+                                    layer.close(index);
+                                    table.reload('carTable');
+                                    layer.msg("删除成功", {icon: 6});
+                                } else {
+                                    layer.msg("删除失败", {icon: 5});
+                                }
+                            }
+                        })
+                    })
+                    break;
+
+                case "upload":
+                    curIndex = layer.open({
+                        type: 1,
+                        area: ['300px', '300px'],
+                        title: "增加/修改图片信息",
+                        fixed: false, //不固定
+                        maxmin: true,
+                        shadeClose: false,
+                        content: $('#car_image')
+                    });
+                    //表单值
+                    form.val("upload_image", {
+                        "car_id": data.car_id
+                    })
+            }
+        });
+
+        form.on('submit(add)', function (data) {
+            // console.log(data.field)
+            $.ajax({
+                url: '/car/add',
+                type: "POST",
+                data: {addCarStr: JSON.stringify(data.field)},
+                success: function (msg) {
+                    if (msg == 'success') {
+                        layer.msg("添加成功！", {icon: 6});
+                        layer.close(curIndex);
+                        table.reload('carTable');
+                    } else {
+                        layer.close(curIndex);
+                        layer.msg("添加失败！", {icon: 5})
+                    }
+                }
+            })
+            return false;
+        });
+
+        form.on('submit(update)', function (data) {
+            $.ajax({
+                url: '/car/update',
+                type: "POST",
+                data: {carStr: JSON.stringify(data.field)},
+                success: function (msg) {
+                    if (msg == 'success') {
+                        layer.msg("更新成功！", {icon: 6});
+                        layer.close(curIndex);
+                        table.reload('carTable');
+                    } else {
+                        layer.close(curIndex);
+                        layer.msg("更新失败！", {icon: 5})
+                    }
+                }
+            })
+            return false;
+        })
+    })
+</script>
 </body>
 </html>

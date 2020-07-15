@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="www.han.mapper.CarMapper">
+    <select id="catListLimit" parameterType="int" resultType="car">
+        select * from car limit #{start},#{pageSize}
+    </select>
+    <select id="getCarCount" resultType="int">
+        select count(1) from car
+    </select>
+    <delete id="deleteCar" parameterType="int">
+        delete from car where car_id = #{carId}
+    </delete>
+    <update id="updateCar" parameterType="car">
+        update car set car_type=#{car_type},
+        car_name=#{car_name},
+        car_color=#{car_color},
+        car_stock=#{car_stock},
+        manufactor_name=#{manufactor_name},
+        manufactor_date=#{manufactor_date},
+        manufactor_price=#{manufactor_price}
+         where car_id=#{car_id}
+    </update>
+    <select id="selectCarById" parameterType="int" resultType="car">
+        select * from car where car_id=#{carId}
+    </select>
+    <insert id="addCar" parameterType="car" >
+        insert into car(car_id,car_type,car_name,car_color,car_stock,manufactor_name,manufactor_date,manufactor_price)
+        values
+        (#{car_id},#{car_type},#{car_name},#{car_color},#{car_stock},#{manufactor_name},#{manufactor_date},#{manufactor_price})
+    </insert>
+    <insert id="addFile" parameterType="map" >
+        update car set car_image=#{car_image} where car_id=#{car_id}
+    </insert>
+</mapper>

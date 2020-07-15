@@ -55,7 +55,10 @@ public class Test {
     }
     @org.junit.Test
     public void test2(){
-        int i = new Random().nextInt(1000000);
-        System.out.println(i);
+        long l = System.currentTimeMillis();
+        String s = l + ".jpg.eeew";
+        String[] split = s.split("\\.");
+        System.out.println(split[split.length-1]);
+
     }
 }
