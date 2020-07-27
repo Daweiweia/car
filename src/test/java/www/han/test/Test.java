@@ -6,12 +6,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import org.w3c.dom.NodeList;
 import www.han.service.PermService;
 import www.han.service.RoleService;
 import www.han.service.StaffService;
 
+import javax.swing.text.Document;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
+import java.util.Vector;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 /**
@@ -55,10 +61,6 @@ public class Test {
     }
     @org.junit.Test
     public void test2(){
-        long l = System.currentTimeMillis();
-        String s = l + ".jpg.eeew";
-        String[] split = s.split("\\.");
-        System.out.println(split[split.length-1]);
 
     }
 }

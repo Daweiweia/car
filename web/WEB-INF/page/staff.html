@@ -186,6 +186,7 @@
             elem: '#staff_form'
             , url: '/staff/staffList'
             , toolbar: '#toolbar_head'
+            ,cellMinWidth:100
             , title: '用户数据表'
             , id: 'staffTable'
             , cols: [
@@ -200,19 +201,18 @@
                     sort: true,
                     totalRowText: '合计'
                 }
-                    , {field: 'department_name', title: '所属部门', width: 120,}
-                    , {field: 'staff_bankCard', title: '银行卡号', width: 120,}
-                    , {field: 'staff_idCard', title: '身份证号', width: 120,}
-                    , {field: 'staff_name', title: '姓名', width: 80, totalRow: true}
-                    , {field: 'staff_phone', title: '电话', width: 80,}
-                    , {field: 'staff_addr', title: '住址', width: 100, totalRow: true}
+                    , {field: 'department_name', title: '所属部门'}
+                    , {field: 'staff_bankCard', title: '银行卡号'}
+                    , {field: 'staff_idCard', title: '身份证号'}
+                    , {field: 'staff_name', title: '姓名', totalRow: true}
+                    , {field: 'staff_phone', title: '电话'}
+                    , {field: 'staff_addr', title: '住址', totalRow: true}
                     , {
                     field: 'jointime',
                     title: '入职时间',
-                    width: 120,
                     templet: '<div>{{layui.util.toDateString(d.jointime,"yyyy-MM-dd")}}</div>'
                 }
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo'}
                 ]
             ]
             , page: true

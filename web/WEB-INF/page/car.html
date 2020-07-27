@@ -187,9 +187,10 @@
     <table class="layui-hide" id="car_form" lay-filter="car_filter">
     </table>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
-        <a class="layui-btn layui-btn-xs" lay-event="upload">修改/添加图片</a>
+        <a shiro:hasPermission="car:update" class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a shiro:hasPermission="car:delete" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+        <a shiro:hasPermission="car:upload" class="layui-btn layui-btn-xs" lay-event="upload">修改/添加图片</a>
+        <span shiro:lacksRole="admin">没有操作权限</span>
     </script>
 </div>
 <script th:src="@{../../static/lib/layui/layui.js}"></script>
@@ -229,6 +230,7 @@
             , url: '/car/carList'
             , toolbar: '#toolbar_head'
             , title: '用户数据表'
+            ,cellMinWidth:100
             , id: 'carTable'
             , cols: [
                 [
@@ -242,19 +244,19 @@
                     sort: true,
                     totalRowText: '合计'
                 }
-                    , {field: 'car_type', title: '汽车类型', width: 120,}
-                    , {field: 'car_name', title: '汽车名', width: 120,}
-                    , {field: 'car_color', title: '汽车颜色', width: 100,}
-                    , {field: 'car_stock', title: '库存量', width: 80, totalRow: true}
-                    , {field: 'manufactor_name', title: '生产商', width: 120,}
+                    , {field: 'car_type', title: '汽车类型', }
+                    , {field: 'car_name', title: '汽车名', }
+                    , {field: 'car_color', title: '汽车颜色',}
+                    , {field: 'car_stock', title: '库存量',  totalRow: true}
+                    , {field: 'manufactor_name', title: '生产商'}
                     , {
                     field: 'manufactor_date',
                     title: '出厂时间',
                     width: 120,
                     templet: '<div>{{layui.util.toDateString(d.manufactor_date,"yyyy-MM-dd")}}</div>'
                 }
-                    , {field: 'manufactor_price', title: '出厂价格', width: 100, totalRow: true}
-                    , {field: 'car_image', title: '汽车照片', width: 100, templet: '#imgTemp'}
+                    , {field: 'manufactor_price', title: '出厂价格',  totalRow: true}
+                    , {field: 'car_image', title: '汽车照片',templet: '#imgTemp'}
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 250}
                 ]
             ]

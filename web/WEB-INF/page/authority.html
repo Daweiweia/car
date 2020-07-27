@@ -61,13 +61,14 @@
             , url: '/role/roleList'
             , title: '用户权限表'
             , id: 'roleTable'
+            ,cellMinWidth:120
             , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'}
-                    , {field: 'user_id', title: '用户id', width: 120,}
-                    , {field: 'user_name', title: '用户', width: 120,}
-                    , {field: 'role_name', title: '对应角色', width: 120,}
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                    , {field: 'user_id', title: '用户id'}
+                    , {field: 'user_name', title: '用户'}
+                    , {field: 'role_name', title: '对应角色'}
+                    , {fixed: 'right', title: '操作', toolbar: '#barDemo'}
                 ]
             ]
             , page: true
