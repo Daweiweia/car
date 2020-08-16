@@ -1,6 +1,5 @@
 package www.han.config.shiro;
 
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -11,7 +10,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import www.han.pojo.User;
 import www.han.service.PermService;
 import www.han.service.RoleService;
@@ -69,7 +67,4 @@ public class UserRealm extends AuthorizingRealm {
         // getName()是realm的继承方法，返回当前类名DatabaseRealm
         // 通过applicationContext-shiro.xml中的HashedCredentialsMatcher，进行密码的自动校验
     }
-
-
-
 }

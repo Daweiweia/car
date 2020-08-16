@@ -24,5 +24,4 @@ public class JsonUtil<T> {
     private String msg;
     private int count;
     List<T> data;
-
 }

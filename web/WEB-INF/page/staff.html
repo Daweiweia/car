@@ -75,7 +75,7 @@
                        class="layui-input">
             </div>
         </div>
-        <button class="layui-btn" lay-submit lay-filter="update"><span
+        <button class="layui-btn" lay-submit lay-filter="update_staff"><span
                 class="layui-icon layui-icon-release"></span>提交
         </button>
         <button type="reset" class="layui-btn layui-btn-primary"><span
@@ -171,8 +171,8 @@
 </script>
 <!--<span th:text="${msg}"></span>-->
 <script th:src="@{../../static/lib/layui/layui.js}"></script>
-
-<script>
+<script th:src="@{../../static/js/laycontrol.js}"></script>
+<!--<script>
     layui.use(['table', 'layer', 'jquery', 'form','element'], function () {
         var table = layui.table;
         var layer = layui.layer;
@@ -338,10 +338,8 @@
             })
             return false;
         })
-
-
     });
-</script>
+</script>-->
 
 </body>
 </html>
