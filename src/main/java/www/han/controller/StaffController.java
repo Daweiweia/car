@@ -2,12 +2,12 @@ package www.han.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import www.han.pojo.Staff;
 import www.han.service.StaffService;
 import www.han.util.JsonUtil;
@@ -23,6 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/staff")
+@Api("员工模块")
 public class StaffController {
     @Autowired
     StaffService staffService;
@@ -32,7 +33,8 @@ public class StaffController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public String staffUpdate(String staffStr) throws JsonProcessingException {
+    @ApiOperation("修改员工信息")
+    public String staffUpdate(@ApiParam("员工信息json") String staffStr) throws JsonProcessingException {
         System.out.println("------------------进来了staffUpdate哦-----------------------------");
         Staff staff = new ObjectMapper().readValue(staffStr, Staff.class);
         int i = staffService.updateStaff(staff);
@@ -46,8 +48,9 @@ public class StaffController {
     /**
      * 分页显示数据
      */
-    @RequestMapping("/staffList")
+    @GetMapping("/staffList")
     @ResponseBody
+    @ApiOperation("员工信息")
     public String getStaffList(@RequestParam("currentPageNo") int currentPageNo,
                                @RequestParam("pageSize") int pageSize) throws JsonProcessingException {
         int start = 0;//查询开始位置
@@ -80,6 +83,7 @@ public class StaffController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation("删除一条员工信息")
     public String staffDel(int staffId) {
         System.out.println("delete得到的数据：" + staffId);
         int del = staffService.delStaff(staffId);
@@ -90,8 +94,9 @@ public class StaffController {
         }
     }
 
-    @RequestMapping("/getDepartment")
+    @PostMapping("/getDepartment")
     @ResponseBody
+    @ApiOperation("获取部门信息")
     public String getDepartment() throws JsonProcessingException {
         List<String> department = staffService.getDepartment();
         String s = new ObjectMapper().writeValueAsString(department);
@@ -99,8 +104,9 @@ public class StaffController {
         return s;
     }
 
-    @RequestMapping("/add")
+    @PostMapping("/add")
     @ResponseBody
+    @ApiOperation("增加员工")
     public String addStaff(String staffStr) throws JsonProcessingException {
         Staff staff = new ObjectMapper().readValue(staffStr, Staff.class);
         System.out.println(staff);

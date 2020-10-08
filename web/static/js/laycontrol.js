@@ -7,10 +7,6 @@ layui.use(['table', 'layer', 'upload', 'jquery', 'form', 'element'], function ()
     var upload = layui.upload
     var curIndex;
 
-
-
-
-
     ///staff
     table.render({
         elem: '#staff_form'
@@ -173,7 +169,7 @@ layui.use(['table', 'layer', 'upload', 'jquery', 'form', 'element'], function ()
     //选完文件后不自动上传
     upload.render({
         elem: '#pickFile'
-        , url: '/car/upload' //改成您自己的上传接口
+        , url: '/car/upload'
         , auto: false
         //,multiple: true
         , bindAction: '#upload'
@@ -234,6 +230,7 @@ layui.use(['table', 'layer', 'upload', 'jquery', 'form', 'element'], function ()
             , limitName: 'pageSize' //每页数据量的参数名，默认：limit
         }
     });
+
     //工具栏事件
     table.on('toolbar(car_filter)', function (obj) {
         var checkStatus = table.checkStatus(obj.config.id);
@@ -256,8 +253,7 @@ layui.use(['table', 'layer', 'upload', 'jquery', 'form', 'element'], function ()
                     shadeClose: false,
                     content: $('#car_add')
                 });
-        }
-        ;
+        };
     });
 
     table.on('tool(car_filter)', function (obj) {
@@ -291,7 +287,7 @@ layui.use(['table', 'layer', 'upload', 'jquery', 'form', 'element'], function ()
                 // console.log(obj.data.staff_id)
                 layer.confirm('确认删除？', function (index) {
                     $.ajax({
-                        type: 'POST',
+                        type: 'GET',
                         url: '/car/delete',
                         data: {carId: obj.data.car_id},
                         success: function (msg) {

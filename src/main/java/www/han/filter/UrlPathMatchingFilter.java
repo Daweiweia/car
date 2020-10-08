@@ -18,16 +18,18 @@ public class UrlPathMatchingFilter extends PathMatchingFilter {
 
     @Override
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-        //System.out.println("进来了PathMatchingFilter");
+        System.out.println("了PathMatchingFilter");
         String requestUrl = getPathWithinApplication(request);
        // System.out.println("PathMatchingFilter---"+requestUrl);
         Subject subject = SecurityUtils.getSubject();
+
         if(!subject.isAuthenticated()){
             // 未登录
+            System.err.println("认证权限-"+requestUrl);
             WebUtils.issueRedirect(request,response,"/router/toLogin");
             return false;
         }
-        //System.out.println("permService-----"+permService);
+        System.out.println("permService-----"+permService);
         boolean needInterceptor = permService.needInterceptor(requestUrl);
         //System.out.println("是否需要权限验证："+needInterceptor);
 

@@ -13,6 +13,7 @@
     <!-- 自动扫描指定的包，下面所有注解类交给IOC容器管理 -->
     <context:component-scan base-package="www.han.controller"/>
 
+
     <!--让springmvc不处理静态资源-->
     <mvc:default-servlet-handler/>
     <!--支持mvc注解驱动，spring中一般采用@RequestMapping注解来完成映射关系
@@ -23,6 +24,7 @@
     <mvc:annotation-driven/>
     <!--配置静态资源-->
     <mvc:resources mapping="/static/**" location="/static/"/>
+
     <!--视图解析器-->
     <!--    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
     <!--        <property name="prefix" value="/WEB-INF/page/"/>-->
@@ -61,6 +63,7 @@
         <property name="maxUploadSize" value="10485760"/>
         <property name="maxInMemorySize" value="40960"/>
     </bean>
+
     <!--处理json在中文乱码最佳方法-->
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">

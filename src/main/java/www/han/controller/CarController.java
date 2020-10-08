@@ -2,12 +2,13 @@ package www.han.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import www.han.pojo.Car;
 import www.han.pojo.FileUp;
@@ -19,12 +20,14 @@ import java.io.*;
 
 @Controller
 @RequestMapping("/car")
+@Api("汽车模块")
 public class CarController {
     @Autowired
     CarService carService;
 
-    @RequestMapping("/carList")
+    @RequestMapping(value = "/carList",method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation("获取汽车信息")
     public String carList(@RequestParam("currentPageNo") int currentPageNo,
                           @RequestParam("pageSize") int pageSize) throws JsonProcessingException {
         int start = 0;//查询开始位置
@@ -52,9 +55,10 @@ public class CarController {
         return cars;
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping(value = "/delete",method = RequestMethod.GET)
     @ResponseBody
-    public String deleteCar(int carId){
+    @ApiOperation("删除车辆信息")
+    public String deleteCar(@ApiParam("汽车ID") int carId){
         int i = carService.deleteCar(carId);
         if (i > 0){
             return "success";
@@ -63,9 +67,10 @@ public class CarController {
         }
     }
 
-    @RequestMapping("/update")
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
-    public String updateCar(String carStr) throws JsonProcessingException {
+    @ApiOperation("更新汽车信息")
+    public String updateCar(@ApiParam("更新的汽车json字符串") String carStr) throws JsonProcessingException {
         Car car = new ObjectMapper().readValue(carStr, Car.class);
         int i = carService.updateCar(car);
         if (i > 0){
@@ -75,9 +80,10 @@ public class CarController {
         }
     }
 
-    @RequestMapping("/add")
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public String addCar(String addCarStr) throws JsonProcessingException {
+    @ApiOperation("新增车辆信息")
+    public String addCar(@ApiParam("新增的车辆json字符串") String addCarStr) throws JsonProcessingException {
         System.out.println(addCarStr);
         Car car = new ObjectMapper().readValue(addCarStr, Car.class);
         Car car1 = carService.selectCarById(car.getCar_id());
@@ -94,8 +100,9 @@ public class CarController {
         }
     }
 
-    @RequestMapping("/upload")
+    @RequestMapping(value = "/upload",method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation("上传汽车图片")
     public String upload(@RequestParam("file") CommonsMultipartFile file,@RequestParam("carId") int carId, HttpServletRequest request, Model model) throws IOException {
         JsonUtil<FileUp> fileJson = new JsonUtil<FileUp>();
         ObjectMapper objectMapper = new ObjectMapper();

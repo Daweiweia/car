@@ -2,12 +2,13 @@ package www.han.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import www.han.pojo.RoleToUser;
 import www.han.service.RoleService;
 import www.han.util.JsonUtil;
@@ -17,6 +18,7 @@ import www.han.util.JsonUtil;
  */
 @Controller
 @RequestMapping("/role")
+@Api("角色控制模块")
 public class RolePermController {
     @Autowired
     RoleService roleService;
@@ -24,8 +26,10 @@ public class RolePermController {
     /**
      * 得到角色列表信息
      */
-    @RequestMapping(value = "/roleList")
+    @GetMapping(value = "/roleList")
     @ResponseBody
+    @ApiOperation("获取角色列表")
+
     public String getRoleList(@RequestParam("currentPageNo") int currentPageNo,
                               @RequestParam("pageSize") int pageSize) throws JsonProcessingException {
 //        Pager<RoleToUser> rolePager = new Pager<RoleToUser>();
@@ -56,9 +60,10 @@ public class RolePermController {
         return RoleUserList;
     }
 
-    @RequestMapping("/changePerm")
+    @PostMapping("/changePerm")
     @ResponseBody
-    public String changePerm(@Param("user_id") String user_id, @Param("role_id") String role_id) throws JsonProcessingException {
+    @ApiOperation("修改角色")
+    public String changePerm(@ApiParam("用户id") @Param("user_id") String user_id, @ApiParam("角色id") @Param("role_id") String role_id) throws JsonProcessingException {
         int userId = Integer.parseInt(user_id);
         int roleId = Integer.parseInt(role_id);
 
