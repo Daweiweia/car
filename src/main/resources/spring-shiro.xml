@@ -14,15 +14,10 @@
         <property name="redirectUrl" value="/"/>
     </bean>
 
-    <!--配置shiro的过滤器工厂类，id- shiroFilter要和我们在web.xml中配置的过滤器一致 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-        <!-- 调用我们配置的权限管理器 -->
         <property name="securityManager" ref="securityManager"/>
-        <!-- 配置我们的登录请求地址 -->
         <property name="loginUrl" value="/router/toLogin"/>
-        <!-- 如果您请求的资源不再您的权限范围，则跳转到/403请求地址 -->
         <property name="unauthorizedUrl" value="/router/nopower"/>
-        <!-- 过滤器 -->
         <property name="filters">
             <util:map>
                 <entry key="logout" value-ref="logoutFilter"/>
@@ -32,7 +27,6 @@
         <!-- 权限配置 -->
         <property name="filterChainDefinitions">
             <value>
-                <!-- anon表示此地址不需要任何权限即可访问 -->
                 /=anon
                 /static/**=anon
                 /router/*=anon
@@ -44,9 +38,6 @@
                 /webjars/**=anon
                 /logout=logout
 
-
-                <!--/staff/**=authc-->
-                <!-- 所有的请求(除去配置的静态资源请求或请求地址为anon的请求)都要通过登录验证,如果未登录则跳到/login -->
                 /**=url
             </value>
         </property>

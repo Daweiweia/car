@@ -55,11 +55,6 @@ public class RouterController {
         return "login";
     }
 
-/*    @RequestMapping("/logout")
-    public String logout() {
-        return "redirect:/login.html";
-    }*/
-
     @GetMapping("/nopower")
     @ResponseBody
     @ApiOperation("无权限提示页面")

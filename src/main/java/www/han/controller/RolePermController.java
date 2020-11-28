@@ -32,13 +32,9 @@ public class RolePermController {
 
     public String getRoleList(@RequestParam("currentPageNo") int currentPageNo,
                               @RequestParam("pageSize") int pageSize) throws JsonProcessingException {
-//        Pager<RoleToUser> rolePager = new Pager<RoleToUser>();
         int start = 0;//查询开始位置
         int pageCount;//总页面数
         int count = roleService.getRoleSize();
-        /*rolePager.setCount(roleService.getRoleSize());//数据总行数
-        rolePager.setCurrentPageNo(currentPageNo);//当前页面
-        rolePager.setPageSize(pageSize);//页面数据量大小*/
 
         if (count % pageSize == 0) {
             pageCount = count / pageSize;
@@ -55,7 +51,6 @@ public class RolePermController {
         roleJson.setCount(count);
         roleJson.setMsg("");
         roleJson.setData(roleService.getRoleListLimit(start, pageSize));
-        System.out.println(roleJson);
         String RoleUserList = new ObjectMapper().writeValueAsString(roleJson);
         return RoleUserList;
     }

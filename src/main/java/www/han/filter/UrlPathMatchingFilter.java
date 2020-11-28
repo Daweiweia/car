@@ -12,29 +12,26 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.util.Set;
 
+/***
+ * url过滤
+ */
 public class UrlPathMatchingFilter extends PathMatchingFilter {
     @Autowired
     private PermService permService;
 
     @Override
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-        System.out.println("了PathMatchingFilter");
         String requestUrl = getPathWithinApplication(request);
-       // System.out.println("PathMatchingFilter---"+requestUrl);
         Subject subject = SecurityUtils.getSubject();
 
         if(!subject.isAuthenticated()){
             // 未登录
-            System.err.println("认证权限-"+requestUrl);
             WebUtils.issueRedirect(request,response,"/router/toLogin");
             return false;
         }
-        System.out.println("permService-----"+permService);
         boolean needInterceptor = permService.needInterceptor(requestUrl);
-        //System.out.println("是否需要权限验证："+needInterceptor);
 
         if(!needInterceptor){
-            // 数据库里存放的所有URL都是需要相关权限的, 一个requestURL进来, 如果数据库里不含有该url,说明这是一个不需要权限的url, 直接放行
             return true;
         }else{
             boolean hasPermission = false;
@@ -48,7 +45,7 @@ public class UrlPathMatchingFilter extends PathMatchingFilter {
             if(hasPermission){
                 return true;
             }else{
-                UnauthorizedException e =  new UnauthorizedException("当前用户没有访问"+requestUrl+"的权限");
+                UnauthorizedException e =  new UnauthorizedException("当前用户没有"+requestUrl+"权限");
                 subject.getSession().setAttribute("e",e);
                 WebUtils.issueRedirect(request,response,"/router/nopower");
                 return false;

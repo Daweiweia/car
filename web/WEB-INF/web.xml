@@ -4,7 +4,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <!--1.注册DispatcherServlet-->
     <servlet>
         <servlet-name>springmvc</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -12,15 +11,21 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:springContext.xml</param-value>
         </init-param>
-        <!--启动级别-1,就是项目一启动就配置-->
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <!-- /* 会匹配所有的请求；（包括.jsp）-->
     <servlet-mapping>
         <servlet-name>springmvc</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    <!--  日志监听-->
+    <context-param>
+        <param-name>logbackConfigLocation</param-name>
+        <param-value>classpath:logback.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+    </listener>
 
     <!--处理乱码-->
     <filter>

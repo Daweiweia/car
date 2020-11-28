@@ -43,12 +43,9 @@ public class LoginController {
     @RequestMapping(value="/login.do",method = RequestMethod.POST)
 //    @ResponseBody
     public String loginControl(String username, String password,  Model model){
-        System.out.println(username +":" +password);
-        //获取当前用户,shiro包下的
         Subject subject = SecurityUtils.getSubject();
         //封装用户的登录数据
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        System.out.println(token.getUsername()+"-这是login.do：-"+token.getPassword());
         //执行登录方法
         try {
             subject.login(token);//执行登录，在用户认证的里面去认证用户名和密码
@@ -76,7 +73,6 @@ public class LoginController {
         user.setSalt(salt);
         String encryptPassword = ShiroUtil.encryptPassword(user.getUser_password(), user.getSalt());
         user.setUser_password(encryptPassword);
-        System.out.println("处理后的user数据："+user);
         int register = userService.register(user);
         if (register > 0){
             //进行角色分配

@@ -51,7 +51,6 @@ public class CarController {
         carJson.setData(carService.carListLimit(start, pageSize));
 
         String cars = new ObjectMapper().writeValueAsString(carJson);
-//        System.out.println(staffs);
         return cars;
     }
 
@@ -84,10 +83,8 @@ public class CarController {
     @ResponseBody
     @ApiOperation("新增车辆信息")
     public String addCar(@ApiParam("新增的车辆json字符串") String addCarStr) throws JsonProcessingException {
-        System.out.println(addCarStr);
         Car car = new ObjectMapper().readValue(addCarStr, Car.class);
         Car car1 = carService.selectCarById(car.getCar_id());
-        System.out.println("---------有无车辆信息-------------"+car1);
         if (car1 != null){
             return "fail";
         }else {
@@ -106,8 +103,6 @@ public class CarController {
     public String upload(@RequestParam("file") CommonsMultipartFile file,@RequestParam("carId") int carId, HttpServletRequest request, Model model) throws IOException {
         JsonUtil<FileUp> fileJson = new JsonUtil<FileUp>();
         ObjectMapper objectMapper = new ObjectMapper();
-//        System.out.println(file+"id是"+carId);
-        //获取文件名 : file.getOriginalFilename();
         String uploadFileName = file.getOriginalFilename();
 
         //如果文件名为空，返回失败！
@@ -118,9 +113,7 @@ public class CarController {
         //获取上传文件名的后缀
         String[] splitStr = uploadFileName.split("\\.");
         String suffix = splitStr[splitStr.length - 1];
-//        System.out.println("文件后缀是："+suffix);
         String fileName = System.currentTimeMillis() + "." + suffix;
-//        System.out.println("filename=="+fileName);
 
         //上传路径保存设置
         String path = request.getSession().getServletContext().getRealPath("/car_images");
@@ -129,7 +122,6 @@ public class CarController {
         if (!realPath.exists()){
             realPath.mkdir();
         }
-//        System.out.println("上传文件保存地址："+realPath);
         InputStream is = file.getInputStream();
         OutputStream os = new FileOutputStream(new File(realPath,fileName));
 

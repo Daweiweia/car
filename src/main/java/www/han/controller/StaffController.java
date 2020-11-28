@@ -74,7 +74,6 @@ public class StaffController {
         staffJson.setData(staffService.staffListLimit(start, pageSize));
 
         String staffs = new ObjectMapper().writeValueAsString(staffJson);
-//        System.out.println(staffs);
         return staffs;
     }
 
@@ -85,7 +84,6 @@ public class StaffController {
     @ResponseBody
     @ApiOperation("删除一条员工信息")
     public String staffDel(int staffId) {
-        System.out.println("delete得到的数据：" + staffId);
         int del = staffService.delStaff(staffId);
         if (del > 0) {
             return "success";
@@ -100,7 +98,6 @@ public class StaffController {
     public String getDepartment() throws JsonProcessingException {
         List<String> department = staffService.getDepartment();
         String s = new ObjectMapper().writeValueAsString(department);
-        System.out.println("得到的部门名称" + s);
         return s;
     }
 
@@ -109,7 +106,6 @@ public class StaffController {
     @ApiOperation("增加员工")
     public String addStaff(String staffStr) throws JsonProcessingException {
         Staff staff = new ObjectMapper().readValue(staffStr, Staff.class);
-        System.out.println(staff);
         String isExit = staffService.selectById(staff.getStaff_id());
         if (isExit != null) {
             return "fail";
